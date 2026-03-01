@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:sqlite::memory:?cache=shared
+    driver-class-name: org.sqlite.JDBC
+  sql:
+    init:
+      mode: always
+
+eodhd:
+  api-key: test-key
+  base-url: http://localhost:8099

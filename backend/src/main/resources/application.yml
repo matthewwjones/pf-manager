@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:sqlite:${PORTFOLIO_DB_PATH:portfolio.db}
+    driver-class-name: org.sqlite.JDBC
+  sql:
+    init:
+      mode: always
+
+eodhd:
+  api-key: ${EODHD_API_KEY:}
+  base-url: https://eodhd.com/api
+
+server:
+  port: 8080
