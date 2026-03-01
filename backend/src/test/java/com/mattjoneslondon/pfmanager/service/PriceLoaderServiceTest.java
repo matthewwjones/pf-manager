@@ -21,6 +21,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -43,9 +44,10 @@ class PriceLoaderServiceTest {
 
     @BeforeEach
     void setUp() {
-        priceLoaderService = new PriceLoaderService(
-                eodhdClient, instrumentRepository, eomPriceRepository, exchangeRateRepository
-        );
+        priceLoaderService = new PriceLoaderService(eodhdClient,
+                                                    instrumentRepository,
+                                                    eomPriceRepository,
+                                                    exchangeRateRepository);
     }
 
     @Test
@@ -63,9 +65,11 @@ class PriceLoaderServiceTest {
         verify(eomPriceRepository).upsert(priceCaptor.capture());
         EomPrice stored = priceCaptor.getValue();
 
-        assertThat(stored.ticker(), is(SGLN_TICKER));
-        assertThat(stored.closingPrice(), closeTo(28.5, TOLERANCE));
-        assertThat(stored.priceDate(), is(LocalDate.of(2026, 1, 31)));
+        assertAll(
+                () -> assertThat(stored.ticker(), is(SGLN_TICKER)),
+                () -> assertThat(stored.closingPrice(), closeTo(28.5, TOLERANCE)),
+                () -> assertThat(stored.priceDate(), is(LocalDate.of(2026, 1, 31)))
+        );
     }
 
     @Test
@@ -82,8 +86,10 @@ class PriceLoaderServiceTest {
         verify(exchangeRateRepository).upsert(rateCaptor.capture());
         ExchangeRate stored = rateCaptor.getValue();
 
-        assertThat(stored.fromCurrency(), is("USD"));
-        assertThat(stored.toCurrency(), is("GBP"));
-        assertThat(stored.rate(), closeTo(1.0 / gbpToUsd, TOLERANCE));
+        assertAll(
+                () -> assertThat(stored.fromCurrency(), is("USD")),
+                () -> assertThat(stored.toCurrency(), is("GBP")),
+                () -> assertThat(stored.rate(), closeTo(1.0 / gbpToUsd, TOLERANCE))
+        );
     }
 }

@@ -11,7 +11,6 @@ import java.util.OptionalDouble;
 public class MovingAverageService {
 
     private static final int MOVING_AVERAGE_MONTHS = 10;
-
     private final EomPriceRepository eomPriceRepository;
 
     public MovingAverageService(EomPriceRepository eomPriceRepository) {

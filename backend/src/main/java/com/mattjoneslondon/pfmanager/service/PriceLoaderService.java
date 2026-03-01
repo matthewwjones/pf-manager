@@ -22,18 +22,15 @@ public class PriceLoaderService {
     private static final String GBP = "GBP";
     private static final String USD = "USD";
     private static final int HISTORY_FETCH_MONTHS = 12;
-
     private final EodhdClient eodhdClient;
     private final InstrumentRepository instrumentRepository;
     private final EomPriceRepository eomPriceRepository;
     private final ExchangeRateRepository exchangeRateRepository;
 
-    public PriceLoaderService(
-            EodhdClient eodhdClient,
-            InstrumentRepository instrumentRepository,
-            EomPriceRepository eomPriceRepository,
-            ExchangeRateRepository exchangeRateRepository
-    ) {
+    public PriceLoaderService(EodhdClient eodhdClient,
+                              InstrumentRepository instrumentRepository,
+                              EomPriceRepository eomPriceRepository,
+                              ExchangeRateRepository exchangeRateRepository) {
         this.eodhdClient = eodhdClient;
         this.instrumentRepository = instrumentRepository;
         this.eomPriceRepository = eomPriceRepository;

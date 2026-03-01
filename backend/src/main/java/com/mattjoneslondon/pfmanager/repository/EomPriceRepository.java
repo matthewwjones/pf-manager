@@ -36,12 +36,12 @@ public class EomPriceRepository {
     public Optional<EomPrice> findLatestForTickerOnOrBefore(String ticker, LocalDate date) {
         return jdbcTemplate.query(
                 """
-                SELECT id, ticker, price_date, closing_price, currency
-                FROM eom_prices
-                WHERE ticker = ? AND price_date <= ?
-                ORDER BY price_date DESC
-                LIMIT 1
-                """,
+                        SELECT id, ticker, price_date, closing_price, currency
+                        FROM eom_prices
+                        WHERE ticker = ? AND price_date <= ?
+                        ORDER BY price_date DESC
+                        LIMIT 1
+                        """,
                 rowMapper(),
                 ticker,
                 date.toString()
@@ -51,12 +51,12 @@ public class EomPriceRepository {
     public List<EomPrice> findMostRecentForTicker(String ticker, int count) {
         return jdbcTemplate.query(
                 """
-                SELECT id, ticker, price_date, closing_price, currency
-                FROM eom_prices
-                WHERE ticker = ?
-                ORDER BY price_date DESC
-                LIMIT ?
-                """,
+                        SELECT id, ticker, price_date, closing_price, currency
+                        FROM eom_prices
+                        WHERE ticker = ?
+                        ORDER BY price_date DESC
+                        LIMIT ?
+                        """,
                 rowMapper(),
                 ticker,
                 count
@@ -66,12 +66,12 @@ public class EomPriceRepository {
     public void upsert(EomPrice price) {
         jdbcTemplate.update(
                 """
-                INSERT INTO eom_prices(ticker, price_date, closing_price, currency)
-                VALUES (?, ?, ?, ?)
-                ON CONFLICT(ticker, price_date) DO UPDATE SET
-                    closing_price = excluded.closing_price,
-                    currency = excluded.currency
-                """,
+                        INSERT INTO eom_prices(ticker, price_date, closing_price, currency)
+                        VALUES (?, ?, ?, ?)
+                        ON CONFLICT(ticker, price_date) DO UPDATE SET
+                            closing_price = excluded.closing_price,
+                            currency = excluded.currency
+                        """,
                 price.ticker(),
                 price.priceDate().toString(),
                 price.closingPrice(),

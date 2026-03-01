@@ -42,6 +42,40 @@ No linting or code formatting tools are currently configured.
 
 Follow the principles in *Clean Code* by Robert C. Martin.
 
+### Formatting
+- All code must be formatted to IntelliJ defaults and imports optimised (unused imports removed, imports ordered per IntelliJ conventions) before saving.
+- No blank lines between field declarations:
+  ```java
+  // correct
+  public class EodhdClient {
+      private static final String MONTHLY_PERIOD = "m";
+      private static final String JSON_FORMAT = "json";
+      private final RestClient restClient;
+      private final String apiKey;
+
+  // wrong
+  public class EodhdClient {
+
+      private static final String MONTHLY_PERIOD = "m";
+      private static final String JSON_FORMAT = "json";
+
+      private final RestClient restClient;
+      private final String apiKey;
+  ```
+
+- Align continuation parameters with the opening parenthesis, not indented on a new line:
+  ```java
+  // correct
+  public EodhdClient(@Value("${eodhd.base-url}") String baseUrl,
+                     @Value("${eodhd.api-key}") String apiKey) {
+
+  // wrong
+  public EodhdClient(
+          @Value("${eodhd.base-url}") String baseUrl,
+          @Value("${eodhd.api-key}") String apiKey
+  ) {
+  ```
+
 ### Testing
 - Write unit tests for all code that contains logic. POJOs with only getters/setters do not need tests.
 - When a test has multiple assertions, always wrap them in `assertAll()` (JUnit 5).

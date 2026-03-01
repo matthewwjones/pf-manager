@@ -12,7 +12,6 @@ public class ExchangeRateService {
 
     private static final String USD = "USD";
     private static final String GBP = "GBP";
-
     private final ExchangeRateRepository exchangeRateRepository;
 
     public ExchangeRateService(ExchangeRateRepository exchangeRateRepository) {

@@ -23,6 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -43,10 +44,11 @@ class PortfolioAnalyticsServiceTest {
 
     @BeforeEach
     void setUp() {
-        portfolioAnalyticsService = new PortfolioAnalyticsService(
-                instrumentRepository, eomPriceRepository, holdingRepository,
-                movingAverageService, exchangeRateService
-        );
+        portfolioAnalyticsService = new PortfolioAnalyticsService(instrumentRepository,
+                                                                  eomPriceRepository,
+                                                                  holdingRepository,
+                                                                  movingAverageService,
+                                                                  exchangeRateService);
     }
 
     @Test
@@ -106,10 +108,12 @@ class PortfolioAnalyticsServiceTest {
         PortfolioSummaryDto summary = portfolioAnalyticsService.buildPortfolioSummary(EOM_DATE);
         InstrumentAnalyticsDto analytics = summary.instruments().get(0);
 
-        assertThat(analytics.valueGbp(), closeTo(30000.0, TOLERANCE));
-        assertThat(analytics.pctDiffFromMa(), closeTo(20.0, TOLERANCE));
-        assertThat(summary.totalValueGbp(), closeTo(30000.0, TOLERANCE));
-        assertThat(analytics.currentWeightPct(), closeTo(100.0, TOLERANCE));
+        assertAll(
+                () -> assertThat(analytics.valueGbp(), closeTo(30000.0, TOLERANCE)),
+                () -> assertThat(analytics.pctDiffFromMa(), closeTo(20.0, TOLERANCE)),
+                () -> assertThat(summary.totalValueGbp(), closeTo(30000.0, TOLERANCE)),
+                () -> assertThat(analytics.currentWeightPct(), closeTo(100.0, TOLERANCE))
+        );
     }
 
     @Test

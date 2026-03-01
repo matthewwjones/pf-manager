@@ -21,20 +21,17 @@ public class PortfolioAnalyticsService {
     private static final String BUY_SIGNAL = "BUY";
     private static final String SELL_SIGNAL = "SELL";
     private static final String NEUTRAL_SIGNAL = "NEUTRAL";
-
     private final InstrumentRepository instrumentRepository;
     private final EomPriceRepository eomPriceRepository;
     private final HoldingRepository holdingRepository;
     private final MovingAverageService movingAverageService;
     private final ExchangeRateService exchangeRateService;
 
-    public PortfolioAnalyticsService(
-            InstrumentRepository instrumentRepository,
-            EomPriceRepository eomPriceRepository,
-            HoldingRepository holdingRepository,
-            MovingAverageService movingAverageService,
-            ExchangeRateService exchangeRateService
-    ) {
+    public PortfolioAnalyticsService(InstrumentRepository instrumentRepository,
+                                     EomPriceRepository eomPriceRepository,
+                                     HoldingRepository holdingRepository,
+                                     MovingAverageService movingAverageService,
+                                     ExchangeRateService exchangeRateService) {
         this.instrumentRepository = instrumentRepository;
         this.eomPriceRepository = eomPriceRepository;
         this.holdingRepository = holdingRepository;

@@ -9,17 +9,13 @@ import java.util.List;
 
 @Component
 public class EodhdClient {
-
     private static final String MONTHLY_PERIOD = "m";
     private static final String JSON_FORMAT = "json";
-
     private final RestClient restClient;
     private final String apiKey;
 
-    public EodhdClient(
-            @Value("${eodhd.base-url}") String baseUrl,
-            @Value("${eodhd.api-key}") String apiKey
-    ) {
+    public EodhdClient(@Value("${eodhd.base-url}") String baseUrl,
+                       @Value("${eodhd.api-key}") String apiKey) {
         this.restClient = RestClient.builder().baseUrl(baseUrl).build();
         this.apiKey = apiKey;
     }

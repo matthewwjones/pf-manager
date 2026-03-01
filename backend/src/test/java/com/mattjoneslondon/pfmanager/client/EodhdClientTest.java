@@ -81,12 +81,14 @@ class EodhdClientTest {
 
         RecordedRequest request = mockServer.takeRequest();
         String path = request.getPath();
-        assertThat(path, containsString("/eod/AAPL.US"));
-        assertThat(path, containsString("api_token=" + API_KEY));
-        assertThat(path, containsString("from=2024-01-01"));
-        assertThat(path, containsString("to=2024-01-31"));
-        assertThat(path, containsString("period=m"));
-        assertThat(path, containsString("fmt=json"));
+        assertAll(
+                () -> assertThat(path, containsString("/eod/AAPL.US")),
+                () -> assertThat(path, containsString("api_token=" + API_KEY)),
+                () -> assertThat(path, containsString("from=2024-01-01")),
+                () -> assertThat(path, containsString("to=2024-01-31")),
+                () -> assertThat(path, containsString("period=m")),
+                () -> assertThat(path, containsString("fmt=json"))
+        );
     }
 
     @Test
@@ -101,7 +103,9 @@ class EodhdClientTest {
         List<EodhdPriceRecord> records = client.fetchMonthlyExchangeRates("GBPUSD.FOREX", FROM, TO);
 
         RecordedRequest request = mockServer.takeRequest();
-        assertThat(records, hasSize(1));
-        assertThat(request.getPath(), containsString("/eod/GBPUSD.FOREX"));
+        assertAll(
+                () -> assertThat(records, hasSize(1)),
+                () -> assertThat(request.getPath(), containsString("/eod/GBPUSD.FOREX"))
+        );
     }
 }

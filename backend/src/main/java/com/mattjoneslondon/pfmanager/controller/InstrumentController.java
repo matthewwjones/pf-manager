@@ -39,17 +39,14 @@ public class InstrumentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createInstrument(@RequestBody InstrumentRequest request) {
-        Instrument instrument = new Instrument(
-                request.ticker(), request.name(), request.currency(), request.targetWeightPct()
-        );
+        Instrument instrument = new Instrument(request.ticker(), request.name(),
+                                               request.currency(), request.targetWeightPct());
         instrumentService.saveInstrument(instrument);
     }
 
     @PutMapping("/{ticker}")
     public void updateInstrument(@PathVariable String ticker, @RequestBody InstrumentRequest request) {
-        Instrument instrument = new Instrument(
-                ticker, request.name(), request.currency(), request.targetWeightPct()
-        );
+        Instrument instrument = new Instrument(ticker, request.name(), request.currency(), request.targetWeightPct());
         instrumentService.saveInstrument(instrument);
     }
 

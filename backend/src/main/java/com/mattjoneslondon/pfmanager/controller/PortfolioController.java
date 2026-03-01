@@ -23,8 +23,7 @@ public class PortfolioController {
 
     @GetMapping
     public PortfolioSummaryDto getPortfolioSummary(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
-    ) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         LocalDate eomDate = date != null ? date : YearMonth.now().atEndOfMonth();
         return portfolioAnalyticsService.buildPortfolioSummary(eomDate);
     }
