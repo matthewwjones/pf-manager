@@ -23,14 +23,6 @@ jobs:
       - name: Build and test
         run: ./gradlew :backend:test
 
-      - name: Publish test results
-        uses: dorny/test-reporter@v1
-        if: always()
-        with:
-          name: Test Results
-          path: backend/build/test-results/test/*.xml
-          reporter: java-junit
-
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         if: always()
