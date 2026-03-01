@@ -37,3 +37,11 @@ No linting or code formatting tools are currently configured.
 ## Conventions
 
 - **Dependency versions** must always be managed in `gradle/libs.versions.toml`. Never hardcode versions directly in `build.gradle`.
+
+## Code Quality
+
+Follow the principles in *Clean Code* by Robert C. Martin.
+
+### Testing
+- Write unit tests for all code that contains logic. POJOs with only getters/setters do not need tests.
+- When a test has multiple assertions, always wrap them in `assertAll()` (JUnit 5).
