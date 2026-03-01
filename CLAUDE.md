@@ -33,3 +33,7 @@ Early-stage Java project. Source layout follows standard Maven/Gradle convention
 - `src/test/resources/` — test fixtures and configuration
 
 No linting or code formatting tools are currently configured.
+
+## Conventions
+
+- **Dependency versions** must always be managed in `gradle/libs.versions.toml`. Never hardcode versions directly in `build.gradle`.

@@ -1,0 +1,17 @@
+[versions]
+springBoot = "4.0.0"
+springDependencyManagement = "1.1.7"
+sqliteJdbc = "3.49.0.0"
+springdoc = "3.0.2"
+hamcrest = "2.2"
+mockito = "5.14.2"
+
+[libraries]
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqliteJdbc" }
+springdoc-openapi-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
