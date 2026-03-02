@@ -4,7 +4,7 @@ springDependencyManagement = "1.1.7"
 sqliteJdbc = "3.49.0.0"
 springdoc = "3.0.2"
 hamcrest = "2.2"
-mockito = "5.14.2"
+mockito = "5.22.0"
 okhttpMockwebserver = "4.12.0"
 jacoco = "0.8.12"
 
