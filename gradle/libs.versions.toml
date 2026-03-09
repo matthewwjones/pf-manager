@@ -1,5 +1,5 @@
 [versions]
-springBoot = "4.0.0"
+springBoot = "4.0.3"
 springDependencyManagement = "1.1.7"
 sqliteJdbc = "3.49.0.0"
 springdoc = "3.0.2"
