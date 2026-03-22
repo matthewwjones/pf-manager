@@ -21,11 +21,11 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
 
       - name: Build and test
-        run: ./gradlew :backend:test
+        run: ./gradlew build
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v7
         if: always()
         with:
           name: coverage-report
-          path: backend/build/reports/jacoco/test/html/
+          path: api/build/reports/jacoco/test/html/
