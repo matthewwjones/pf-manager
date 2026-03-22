@@ -3,13 +3,11 @@ package com.mattjoneslondon.pfmanager.controller;
 import com.mattjoneslondon.pfmanager.dto.InstrumentAnalyticsDto;
 import com.mattjoneslondon.pfmanager.dto.PortfolioSummaryDto;
 import com.mattjoneslondon.pfmanager.service.PortfolioAnalyticsService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,19 +21,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(PortfolioControllerImpl.class)
 class PortfolioControllerTest {
 
-    @Mock
-    private PortfolioAnalyticsService portfolioAnalyticsService;
-
+    @Autowired
     private MockMvc mockMvc;
 
-    @BeforeEach
-    void setUp() {
-        PortfolioController controller = new PortfolioController(portfolioAnalyticsService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
+    @MockitoBean
+    private PortfolioAnalyticsService portfolioAnalyticsService;
 
     @Test
     void givenPortfolioData_whenGettingPortfolio_thenReturnsAnalyticsWithOkStatus() throws Exception {

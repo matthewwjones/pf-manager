@@ -2,49 +2,38 @@ package com.mattjoneslondon.pfmanager.controller;
 
 import com.mattjoneslondon.pfmanager.domain.Holding;
 import com.mattjoneslondon.pfmanager.dto.HoldingRequest;
-import com.mattjoneslondon.pfmanager.service.HoldingService;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/holdings")
-public class HoldingController {
+@Tag(name = "Holdings", description = "Manage the shares held in the portfolio")
+public interface HoldingController {
 
-    private final HoldingService holdingService;
+    @Operation(summary = "Get all holdings", description = "Returns every holding record across all instruments.")
+    @ApiResponse(responseCode = "200", description = "List of all holdings",
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = Holding.class))))
+    List<Holding> getAllHoldings();
 
-    public HoldingController(HoldingService holdingService) {
-        this.holdingService = holdingService;
-    }
+    @Operation(summary = "Get holdings for a ticker", description = "Returns all holding records for the given instrument.")
+    @ApiResponse(responseCode = "200", description = "Holdings for the specified ticker",
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = Holding.class))))
+    List<Holding> getHoldingsForTicker(
+            @Parameter(description = "Instrument ticker symbol", example = "VWRL.LSE") String ticker);
 
-    @GetMapping
-    public List<Holding> getAllHoldings() {
-        return holdingService.getAllHoldings();
-    }
+    @Operation(summary = "Create a holding", description = "Records a new share holding for an instrument on the given effective date.")
+    @ApiResponse(responseCode = "201", description = "Holding created successfully")
+    void createHolding(
+            @RequestBody(description = "Holding details",
+                    content = @Content(schema = @Schema(implementation = HoldingRequest.class))) HoldingRequest request);
 
-    @GetMapping("/{ticker}")
-    public List<Holding> getHoldingsForTicker(@PathVariable String ticker) {
-        return holdingService.getHoldingsForTicker(ticker);
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createHolding(@RequestBody HoldingRequest request) {
-        Holding holding = new Holding(0, request.ticker(), request.shares(), request.effectiveDate());
-        holdingService.saveHolding(holding);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteHolding(@PathVariable long id) {
-        holdingService.deleteHolding(id);
-    }
+    @Operation(summary = "Delete a holding", description = "Removes the holding record with the given ID.")
+    @ApiResponse(responseCode = "204", description = "Holding deleted successfully")
+    void deleteHolding(@Parameter(description = "Holding ID", example = "1") long id);
 }

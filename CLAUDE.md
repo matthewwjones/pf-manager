@@ -76,6 +76,26 @@ Follow the principles in *Clean Code* by Robert C. Martin.
   ) {
   ```
 
+### REST API / Swagger
+- Annotate all Swagger-exposed endpoints with meaningful OpenAPI annotations (`@Tag`, `@Operation`, `@ApiResponse`, `@Schema`, etc.) including example schema objects for request and response types.
+- To avoid cluttering controller classes, extract all OpenAPI annotations onto a dedicated `*Api` interface per controller; the controller implements the interface and contains only business logic.
+  ```java
+  // PortfolioApi.java — annotations only
+  @Tag(name = "Portfolio", description = "Manage portfolios")
+  public interface PortfolioApi {
+      @Operation(summary = "List all portfolios")
+      @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = PortfolioResponse.class)))
+      ResponseEntity<List<PortfolioResponse>> getPortfolios();
+  }
+
+  // PortfolioController.java — business logic only
+  @RestController
+  public class PortfolioController implements PortfolioApi {
+      @Override
+      public ResponseEntity<List<PortfolioResponse>> getPortfolios() { ... }
+  }
+  ```
+
 ### Testing
 - Write unit tests for all code that contains logic. POJOs with only getters/setters do not need tests.
 - When a test has multiple assertions, always wrap them in `assertAll()` (JUnit 5).

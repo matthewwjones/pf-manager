@@ -1,16 +1,13 @@
 package com.mattjoneslondon.pfmanager.controller;
 
-import com.mattjoneslondon.pfmanager.config.GlobalExceptionHandler;
 import com.mattjoneslondon.pfmanager.domain.Instrument;
 import com.mattjoneslondon.pfmanager.service.InstrumentService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,22 +22,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(InstrumentControllerImpl.class)
 class InstrumentControllerTest {
 
-    @Mock
-    private InstrumentService instrumentService;
-
+    @Autowired
     private MockMvc mockMvc;
 
-    @BeforeEach
-    void setUp() {
-        InstrumentController controller = new InstrumentController(instrumentService);
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(controller)
-                .setControllerAdvice(new GlobalExceptionHandler())
-                .build();
-    }
+    @MockitoBean
+    private InstrumentService instrumentService;
 
     @Test
     void givenInstrumentsExist_whenGettingAll_thenReturnsListWithOkStatus() throws Exception {

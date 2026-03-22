@@ -2,57 +2,46 @@ package com.mattjoneslondon.pfmanager.controller;
 
 import com.mattjoneslondon.pfmanager.domain.Instrument;
 import com.mattjoneslondon.pfmanager.dto.InstrumentRequest;
-import com.mattjoneslondon.pfmanager.service.InstrumentService;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/instruments")
-public class InstrumentController {
+@Tag(name = "Instruments", description = "Manage the investable instruments tracked in the portfolio")
+public interface InstrumentController {
 
-    private final InstrumentService instrumentService;
+    @Operation(summary = "Get all instruments", description = "Returns every instrument currently tracked in the portfolio.")
+    @ApiResponse(responseCode = "200", description = "List of all instruments",
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = Instrument.class))))
+    List<Instrument> getAllInstruments();
 
-    public InstrumentController(InstrumentService instrumentService) {
-        this.instrumentService = instrumentService;
-    }
+    @Operation(summary = "Get an instrument by ticker")
+    @ApiResponse(responseCode = "200", description = "The requested instrument",
+            content = @Content(schema = @Schema(implementation = Instrument.class)))
+    Instrument getInstrument(
+            @Parameter(description = "Instrument ticker symbol", example = "VWRL.LSE") String ticker);
 
-    @GetMapping
-    public List<Instrument> getAllInstruments() {
-        return instrumentService.getAllInstruments();
-    }
+    @Operation(summary = "Create an instrument", description = "Adds a new instrument to the portfolio with a target weight.")
+    @ApiResponse(responseCode = "201", description = "Instrument created successfully")
+    void createInstrument(
+            @RequestBody(description = "Instrument details",
+                    content = @Content(schema = @Schema(implementation = InstrumentRequest.class))) InstrumentRequest request);
 
-    @GetMapping("/{ticker}")
-    public Instrument getInstrument(@PathVariable String ticker) {
-        return instrumentService.getInstrument(ticker);
-    }
+    @Operation(summary = "Update an instrument", description = "Replaces the stored details for the given instrument.")
+    @ApiResponse(responseCode = "200", description = "Instrument updated successfully")
+    void updateInstrument(
+            @Parameter(description = "Instrument ticker symbol", example = "VWRL.LSE") String ticker,
+            @RequestBody(description = "Updated instrument details",
+                    content = @Content(schema = @Schema(implementation = InstrumentRequest.class))) InstrumentRequest request);
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createInstrument(@RequestBody InstrumentRequest request) {
-        Instrument instrument = new Instrument(request.ticker(), request.name(),
-                                               request.currency(), request.targetWeightPct());
-        instrumentService.saveInstrument(instrument);
-    }
-
-    @PutMapping("/{ticker}")
-    public void updateInstrument(@PathVariable String ticker, @RequestBody InstrumentRequest request) {
-        Instrument instrument = new Instrument(ticker, request.name(), request.currency(), request.targetWeightPct());
-        instrumentService.saveInstrument(instrument);
-    }
-
-    @DeleteMapping("/{ticker}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteInstrument(@PathVariable String ticker) {
-        instrumentService.deleteInstrument(ticker);
-    }
+    @Operation(summary = "Delete an instrument")
+    @ApiResponse(responseCode = "204", description = "Instrument deleted successfully")
+    void deleteInstrument(
+            @Parameter(description = "Instrument ticker symbol", example = "VWRL.LSE") String ticker);
 }
