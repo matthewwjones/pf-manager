@@ -19,17 +19,16 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation libs.spring.boot.starter.web
+    implementation libs.spring.boot.starter.jdbc
     implementation libs.sqlite.jdbc
     implementation libs.springdoc.openapi.webmvc.ui
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation libs.spring.boot.starter.test
     testImplementation libs.spring.boot.starter.webmvc.test
     testImplementation libs.hamcrest
     testImplementation libs.mockito.core
     testImplementation libs.okhttp.mockwebserver
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testRuntimeOnly libs.junit.platform.launcher
 }
 
 test {

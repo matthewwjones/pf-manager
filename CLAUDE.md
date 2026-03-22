@@ -37,6 +37,7 @@ No linting or code formatting tools are currently configured.
 ## Conventions
 
 - **Dependency versions** must always be managed in `gradle/libs.versions.toml`. Never hardcode versions directly in `build.gradle`.
+- **All dependencies** must be declared in `gradle/libs.versions.toml` as library entries and referenced in `build.gradle` via catalog aliases (e.g. `libs.spring.boot.starter.web`). Never use string notation (e.g. `'org.springframework.boot:spring-boot-starter-web'`) directly in `build.gradle`.
 
 ## Code Quality
 

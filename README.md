@@ -1,6 +1,7 @@
 # pf-manager
 
-A portfolio management application built with Java 21 and Spring Boot 4. Tracks equity holdings, fetches end-of-month prices from the [EODHD](https://eodhd.com) API, and generates buy/sell signals using a 10-month moving average strategy.
+A portfolio management application built with Java 21 and Spring Boot 4. Tracks equity holdings, fetches end-of-month
+prices from the [EODHD](https://eodhd.com) API, and generates buy/sell signals using a 10-month moving average strategy.
 
 ## Features
 
@@ -37,9 +38,9 @@ cd pf-manager
 
 ### 2. Configure environment variables
 
-| Variable | Description | Default |
-|---|---|---|
-| `EODHD_API_KEY` | Your EODHD API key | _(empty)_ |
+| Variable            | Description                      | Default        |
+|---------------------|----------------------------------|----------------|
+| `EODHD_API_KEY`     | Your EODHD API key               | _(empty)_      |
 | `PORTFOLIO_DB_PATH` | Path to the SQLite database file | `portfolio.db` |
 
 ```bash
@@ -50,7 +51,7 @@ export PORTFOLIO_DB_PATH=/path/to/portfolio.db
 ### 3. Run the application
 
 ```bash
-./gradlew :backend:bootRun
+./gradlew bootRun
 ```
 
 The API will be available at `http://localhost:8080`.
@@ -61,36 +62,36 @@ Swagger UI is available at `http://localhost:8080/swagger-ui.html`.
 
 ### Portfolio
 
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/api/portfolio` | Portfolio summary with analytics. Optional `?date=YYYY-MM-DD` parameter. |
+| Method | Path             | Description                                                              |
+|--------|------------------|--------------------------------------------------------------------------|
+| `GET`  | `/api/portfolio` | Portfolio summary with analytics. Optional `?date=YYYY-MM-DD` parameter. |
 
 ### Instruments
 
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/api/instruments` | List all instruments |
-| `POST` | `/api/instruments` | Create an instrument |
-| `GET` | `/api/instruments/{ticker}` | Get an instrument by ticker |
-| `PUT` | `/api/instruments/{ticker}` | Update an instrument |
-| `DELETE` | `/api/instruments/{ticker}` | Delete an instrument |
+| Method   | Path                        | Description                 |
+|----------|-----------------------------|-----------------------------|
+| `GET`    | `/api/instruments`          | List all instruments        |
+| `POST`   | `/api/instruments`          | Create an instrument        |
+| `GET`    | `/api/instruments/{ticker}` | Get an instrument by ticker |
+| `PUT`    | `/api/instruments/{ticker}` | Update an instrument        |
+| `DELETE` | `/api/instruments/{ticker}` | Delete an instrument        |
 
 ### Holdings
 
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/api/holdings` | List all holdings |
-| `GET` | `/api/holdings/{ticker}` | Holdings for a specific ticker |
-| `POST` | `/api/holdings` | Record a holding |
-| `DELETE` | `/api/holdings/{id}` | Delete a holding |
+| Method   | Path                     | Description                    |
+|----------|--------------------------|--------------------------------|
+| `GET`    | `/api/holdings`          | List all holdings              |
+| `GET`    | `/api/holdings/{ticker}` | Holdings for a specific ticker |
+| `POST`   | `/api/holdings`          | Record a holding               |
+| `DELETE` | `/api/holdings/{id}`     | Delete a holding               |
 
 ### Prices
 
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/api/prices` | All stored prices |
-| `GET` | `/api/prices/{ticker}` | Prices for a specific ticker |
-| `POST` | `/api/prices/load` | Fetch and store prices from EODHD |
+| Method | Path                   | Description                       |
+|--------|------------------------|-----------------------------------|
+| `GET`  | `/api/prices`          | All stored prices                 |
+| `GET`  | `/api/prices/{ticker}` | Prices for a specific ticker      |
+| `POST` | `/api/prices/load`     | Fetch and store prices from EODHD |
 
 ## Development
 
@@ -110,18 +111,18 @@ Tests use an in-memory SQLite database and a mock EODHD server — no external d
 
 ### Test coverage
 
-JaCoCo coverage reports are generated at `backend/build/reports/jacoco/`.
+JaCoCo coverage reports are generated at `api/build/reports/jacoco/`.
 
 ## Database Schema
 
-The SQLite schema is initialised automatically on startup from `backend/src/main/resources/schema.sql`.
+The SQLite schema is initialised automatically on startup from `api/src/main/resources/schema.sql`.
 
-| Table | Description |
-|---|---|
-| `instruments` | Instrument definitions (ticker, name, currency, target weight) |
-| `eom_prices` | End-of-month closing prices |
-| `holdings` | Share quantities with effective dates |
-| `exchange_rates` | Currency conversion rates (e.g. USD/GBP) |
+| Table            | Description                                                    |
+|------------------|----------------------------------------------------------------|
+| `instruments`    | Instrument definitions (ticker, name, currency, target weight) |
+| `eom_prices`     | End-of-month closing prices                                    |
+| `holdings`       | Share quantities with effective dates                          |
+| `exchange_rates` | Currency conversion rates (e.g. USD/GBP)                       |
 
 ## Portfolio Analytics
 
