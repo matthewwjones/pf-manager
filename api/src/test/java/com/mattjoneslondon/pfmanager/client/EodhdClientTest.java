@@ -37,7 +37,7 @@ class EodhdClientTest {
     }
 
     @Test
-    void fetchMonthlyPrices_returnsParsedRecords() throws Exception {
+    void fetchMonthlyPricesReturnsParsedRecords() throws Exception {
         mockServer.enqueue(new MockResponse()
                 .setBody("""
                         [{"date":"2024-01-31","open":100.0,"high":110.0,"low":90.0,
@@ -61,7 +61,7 @@ class EodhdClientTest {
     }
 
     @Test
-    void fetchMonthlyPrices_returnsEmptyList_whenResponseBodyIsEmptyArray() throws Exception {
+    void fetchMonthlyPricesReturnsEmptyListWhenResponseIsEmptyArray() throws Exception {
         mockServer.enqueue(new MockResponse()
                 .setBody("[]")
                 .addHeader("Content-Type", "application/json"));
@@ -72,7 +72,7 @@ class EodhdClientTest {
     }
 
     @Test
-    void fetchMonthlyPrices_sendsCorrectQueryParameters() throws Exception {
+    void fetchMonthlyPricesSendsCorrectQueryParameters() throws Exception {
         mockServer.enqueue(new MockResponse()
                 .setBody("[]")
                 .addHeader("Content-Type", "application/json"));
@@ -92,7 +92,7 @@ class EodhdClientTest {
     }
 
     @Test
-    void fetchMonthlyExchangeRates_usesTheSameEndpoint() throws Exception {
+    void fetchMonthlyExchangeRatesUsesTheSameEndpoint() throws Exception {
         mockServer.enqueue(new MockResponse()
                 .setBody("""
                         [{"date":"2024-01-31","open":1.27,"high":1.28,"low":1.26,

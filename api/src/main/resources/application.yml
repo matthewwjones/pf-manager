@@ -12,3 +12,7 @@ eodhd:
 
 server:
   port: 8080
+
+springdoc:
+  swagger-ui:
+    tryItOutEnabled: true

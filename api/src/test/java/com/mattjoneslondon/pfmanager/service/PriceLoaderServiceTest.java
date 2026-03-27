@@ -51,7 +51,7 @@ class PriceLoaderServiceTest {
     }
 
     @Test
-    void givenInstruments_whenLoadingPrices_thenFetchesAndStoresPricesForEachInstrument() {
+    void fetchesAndStoresPricesForEachInstrument() {
         Instrument sgln = new Instrument(SGLN_TICKER, "iShares Gold", GBP, 10.0);
         EodhdPriceRecord priceRecord = new EodhdPriceRecord("2026-01-31", 28.0, 29.0, 27.0, 28.5, 28.5, 100000L);
 
@@ -73,7 +73,7 @@ class PriceLoaderServiceTest {
     }
 
     @Test
-    void givenForexData_whenLoadingPrices_thenStoresInvertedRateAsUsdToGbp() {
+    void storesInvertedGbpUsdRateAsUsdToGbp() {
         double gbpToUsd = 1.27;
         EodhdPriceRecord forexRecord = new EodhdPriceRecord("2026-01-31", 1.27, 1.28, 1.26, 1.27, gbpToUsd, 0L);
 

@@ -31,7 +31,7 @@ class PortfolioControllerTest {
     private PortfolioAnalyticsService portfolioAnalyticsService;
 
     @Test
-    void givenPortfolioData_whenGettingPortfolio_thenReturnsAnalyticsWithOkStatus() throws Exception {
+    void returnsPortfolioAnalyticsWithOkStatus() throws Exception {
         InstrumentAnalyticsDto sgln = new InstrumentAnalyticsDto(
                 "SGLN.L", "iShares Gold", "GBP", 30.0, 25.0, "BUY", 20.0, 1000.0, 30000.0, 100.0, 10.0
         );
