@@ -7,6 +7,8 @@ hamcrest = "3.0"
 mockito = "5.23.0"
 okhttpMockwebserver = "5.3.2"
 jacoco = "0.8.12"
+lombok = "1.18.38"
+benManes = "0.51.0"
 
 [libraries]
 sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqliteJdbc" }
@@ -19,7 +21,9 @@ spring-boot-starter-jdbc = { module = "org.springframework.boot:spring-boot-star
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 spring-boot-starter-webmvc-test = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
+ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "benManes" }

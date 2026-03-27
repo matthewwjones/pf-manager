@@ -52,7 +52,7 @@ class PortfolioAnalyticsServiceTest {
     }
 
     @Test
-    void givenPriceAboveMovingAverage_whenBuildingAnalytics_thenSignalIsBuy() {
+    void signalIsBuyWhenPriceAboveMovingAverage() {
         Instrument sgln = new Instrument(SGLN_TICKER, "iShares Gold", GBP, 10.0);
         EomPrice latestPrice = new EomPrice(1L, SGLN_TICKER, EOM_DATE, 30.0, GBP);
         Holding holding = new Holding(1L, SGLN_TICKER, 500.0, EOM_DATE);
@@ -67,13 +67,14 @@ class PortfolioAnalyticsServiceTest {
 
         PortfolioSummaryDto summary = portfolioAnalyticsService.buildPortfolioSummary(EOM_DATE);
 
-        assertThat(summary.instruments(), hasSize(1));
-        InstrumentAnalyticsDto analytics = summary.instruments().get(0);
-        assertThat(analytics.signal(), is("BUY"));
+        assertAll(
+                () -> assertThat(summary.instruments(), hasSize(1)),
+                () -> assertThat(summary.instruments().get(0).signal(), is("BUY"))
+        );
     }
 
     @Test
-    void givenPriceBelowMovingAverage_whenBuildingAnalytics_thenSignalIsSell() {
+    void signalIsSellWhenPriceBelowMovingAverage() {
         Instrument sgln = new Instrument(SGLN_TICKER, "iShares Gold", GBP, 10.0);
         EomPrice latestPrice = new EomPrice(1L, SGLN_TICKER, EOM_DATE, 20.0, GBP);
         Holding holding = new Holding(1L, SGLN_TICKER, 500.0, EOM_DATE);
@@ -92,7 +93,7 @@ class PortfolioAnalyticsServiceTest {
     }
 
     @Test
-    void givenPriceAndHoldings_whenBuildingAnalytics_thenCalculatesValueAndPctDiff() {
+    void calculatesValueAndPctDiffFromMovingAverage() {
         Instrument sgln = new Instrument(SGLN_TICKER, "iShares Gold", GBP, 10.0);
         EomPrice latestPrice = new EomPrice(1L, SGLN_TICKER, EOM_DATE, 30.0, GBP);
         Holding holding = new Holding(1L, SGLN_TICKER, 1000.0, EOM_DATE);
@@ -117,7 +118,7 @@ class PortfolioAnalyticsServiceTest {
     }
 
     @Test
-    void givenUsdInstrument_whenBuildingAnalytics_thenConvertsToGbp() {
+    void convertsUsdPriceToGbpWhenInstrumentIsUsd() {
         Instrument usdInstrument = new Instrument("AIGC.L", "AI ETF", "USD", 10.0);
         EomPrice latestPrice = new EomPrice(1L, "AIGC.L", EOM_DATE, 100.0, "USD");
         Holding holding = new Holding(1L, "AIGC.L", 100.0, EOM_DATE);
@@ -139,7 +140,7 @@ class PortfolioAnalyticsServiceTest {
     }
 
     @Test
-    void givenNoPrice_whenBuildingAnalytics_thenSignalIsNeutral() {
+    void signalIsNeutralWhenNoPriceExists() {
         Instrument sgln = new Instrument(SGLN_TICKER, "iShares Gold", GBP, 10.0);
 
         when(instrumentRepository.findAll()).thenReturn(List.of(sgln));

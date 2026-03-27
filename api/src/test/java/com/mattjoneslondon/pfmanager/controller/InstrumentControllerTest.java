@@ -32,7 +32,7 @@ class InstrumentControllerTest {
     private InstrumentService instrumentService;
 
     @Test
-    void givenInstrumentsExist_whenGettingAll_thenReturnsListWithOkStatus() throws Exception {
+    void returnsAllInstrumentsWithOkStatus() throws Exception {
         List<Instrument> instruments = List.of(
                 new Instrument("SGLN.L", "iShares Gold", "GBP", 10.0),
                 new Instrument("ISF.L", "iShares FTSE 100", "GBP", 15.0)
@@ -47,7 +47,7 @@ class InstrumentControllerTest {
     }
 
     @Test
-    void givenValidRequest_whenCreatingInstrument_thenReturnsCreatedStatus() throws Exception {
+    void returnsCreatedStatusOnValidRequest() throws Exception {
         String requestJson = """
                 {"ticker":"SGLN.L","name":"iShares Gold","currency":"GBP","targetWeightPct":10.0}
                 """;
@@ -59,7 +59,7 @@ class InstrumentControllerTest {
     }
 
     @Test
-    void givenUnknownTicker_whenDeletingInstrument_thenReturnsNotFoundStatus() throws Exception {
+    void returnsNotFoundForUnknownTicker() throws Exception {
         doThrow(new NoSuchElementException("Instrument not found: UNKNOWN"))
                 .when(instrumentService).deleteInstrument("UNKNOWN");
 

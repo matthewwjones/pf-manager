@@ -36,7 +36,7 @@ class ExchangeRateServiceTest {
     }
 
     @Test
-    void givenRateExists_whenGettingUsdToGbpRate_thenReturnsRate() {
+    void returnsUsdToGbpRate() {
         ExchangeRate storedRate = new ExchangeRate(1L, JANUARY_2026, USD, GBP, 0.7874);
         when(exchangeRateRepository.findLatestOnOrBefore(USD, GBP, JANUARY_2026))
                 .thenReturn(Optional.of(storedRate));
@@ -47,7 +47,7 @@ class ExchangeRateServiceTest {
     }
 
     @Test
-    void givenNoRateExists_whenGettingUsdToGbpRate_thenThrowsNoSuchElementException() {
+    void throwsWhenNoRateExists() {
         when(exchangeRateRepository.findLatestOnOrBefore(USD, GBP, JANUARY_2026))
                 .thenReturn(Optional.empty());
 

@@ -37,7 +37,7 @@ class MovingAverageServiceTest {
     }
 
     @Test
-    void givenTenMonthsOfPrices_whenCalculatingMovingAverage_thenReturnsArithmeticMean() {
+    void calculatesArithmeticMeanOfTenMonths() {
         List<EomPrice> tenMonthsOfPrices = buildPricesWithValues(
                 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0
         );
@@ -52,7 +52,7 @@ class MovingAverageServiceTest {
     }
 
     @Test
-    void givenNoPrices_whenCalculatingMovingAverage_thenReturnsEmpty() {
+    void returnsEmptyWhenNoPricesExist() {
         when(eomPriceRepository.findMostRecentForTicker(TICKER, 10)).thenReturn(List.of());
 
         OptionalDouble result = movingAverageService.calculateTenMonthMovingAverage(TICKER);
@@ -61,7 +61,7 @@ class MovingAverageServiceTest {
     }
 
     @Test
-    void givenFewerThanTenMonths_whenCalculatingMovingAverage_thenAveragesAvailableData() {
+    void averagesAvailableDataWhenFewerThanTenMonths() {
         List<EomPrice> fiveMonthsOfPrices = buildPricesWithValues(10.0, 20.0, 30.0, 40.0, 50.0);
         when(eomPriceRepository.findMostRecentForTicker(TICKER, 10)).thenReturn(fiveMonthsOfPrices);
 
@@ -74,7 +74,7 @@ class MovingAverageServiceTest {
     }
 
     @Test
-    void givenTenMonthsOfPrices_whenCheckingHistory_thenReturnsTrue() {
+    void returnsTrueWhenTenMonthsOfPricesExist() {
         List<EomPrice> tenMonthsOfPrices = buildPricesWithValues(
                 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0
         );
@@ -84,7 +84,7 @@ class MovingAverageServiceTest {
     }
 
     @Test
-    void givenFewerThanTenMonths_whenCheckingHistory_thenReturnsFalse() {
+    void returnsFalseWhenFewerThanTenMonthsExist() {
         List<EomPrice> fiveMonthsOfPrices = buildPricesWithValues(10.0, 20.0, 30.0, 40.0, 50.0);
         when(eomPriceRepository.findMostRecentForTicker(TICKER, 10)).thenReturn(fiveMonthsOfPrices);
 

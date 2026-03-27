@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
+    alias(libs.plugins.ben.manes.versions)
     id 'java'
     id 'jacoco'
 }
@@ -19,6 +20,8 @@ repositories {
 }
 
 dependencies {
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
     implementation libs.spring.boot.starter.web
     implementation libs.spring.boot.starter.jdbc
     implementation libs.sqlite.jdbc
@@ -29,6 +32,10 @@ dependencies {
     testImplementation libs.mockito.core
     testImplementation libs.okhttp.mockwebserver
     testRuntimeOnly libs.junit.platform.launcher
+}
+
+springBoot {
+    buildInfo()
 }
 
 test {

@@ -1,5 +1,6 @@
 package com.mattjoneslondon.pfmanager.client;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -7,6 +8,7 @@ import org.springframework.web.client.RestClient;
 import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 @Component
 public class EodhdClient {
     private static final String MONTHLY_PERIOD = "m";
@@ -21,7 +23,8 @@ public class EodhdClient {
     }
 
     public List<EodhdPriceRecord> fetchMonthlyPrices(String ticker, LocalDate from, LocalDate to) {
-        EodhdPriceRecord[] records = restClient.get()
+        log.info("Requesting monthly prices from EODHD: ticker={}, from={}, to={}", ticker, from, to);
+        final EodhdPriceRecord[] records = restClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/eod/{ticker}")
                         .queryParam("api_token", apiKey)
