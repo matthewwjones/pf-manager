@@ -7,7 +7,7 @@ hamcrest = "3.0"
 mockito = "5.23.0"
 okhttpMockwebserver = "5.3.2"
 jacoco = "0.8.12"
-lombok = "1.18.38"
+lombok = "1.18.44"
 benManes = "0.51.0"
 
 [libraries]
