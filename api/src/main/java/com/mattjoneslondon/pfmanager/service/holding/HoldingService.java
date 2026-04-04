@@ -1,11 +1,10 @@
-package com.mattjoneslondon.pfmanager.service;
+package com.mattjoneslondon.pfmanager.service.holding;
 
-import com.mattjoneslondon.pfmanager.domain.Holding;
-import com.mattjoneslondon.pfmanager.repository.HoldingRepository;
+import com.mattjoneslondon.pfmanager.dao.holding.HoldingRepository;
+import com.mattjoneslondon.pfmanager.domain.holding.Holding;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class HoldingService {

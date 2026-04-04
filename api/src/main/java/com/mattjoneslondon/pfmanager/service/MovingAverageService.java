@@ -1,7 +1,7 @@
 package com.mattjoneslondon.pfmanager.service;
 
+import com.mattjoneslondon.pfmanager.dao.EomPriceRepository;
 import com.mattjoneslondon.pfmanager.domain.EomPrice;
-import com.mattjoneslondon.pfmanager.repository.EomPriceRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

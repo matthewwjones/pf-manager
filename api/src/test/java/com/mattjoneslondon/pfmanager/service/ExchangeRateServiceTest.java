@@ -1,7 +1,7 @@
 package com.mattjoneslondon.pfmanager.service;
 
+import com.mattjoneslondon.pfmanager.dao.ExchangeRateRepository;
 import com.mattjoneslondon.pfmanager.domain.ExchangeRate;
-import com.mattjoneslondon.pfmanager.repository.ExchangeRateRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

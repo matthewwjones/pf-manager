@@ -2,12 +2,12 @@ package com.mattjoneslondon.pfmanager.service;
 
 import com.mattjoneslondon.pfmanager.client.EodhdClient;
 import com.mattjoneslondon.pfmanager.client.EodhdPriceRecord;
+import com.mattjoneslondon.pfmanager.dao.EomPriceRepository;
+import com.mattjoneslondon.pfmanager.dao.ExchangeRateRepository;
+import com.mattjoneslondon.pfmanager.dao.instrument.InstrumentRepository;
 import com.mattjoneslondon.pfmanager.domain.EomPrice;
 import com.mattjoneslondon.pfmanager.domain.ExchangeRate;
-import com.mattjoneslondon.pfmanager.domain.Instrument;
-import com.mattjoneslondon.pfmanager.repository.EomPriceRepository;
-import com.mattjoneslondon.pfmanager.repository.ExchangeRateRepository;
-import com.mattjoneslondon.pfmanager.repository.InstrumentRepository;
+import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

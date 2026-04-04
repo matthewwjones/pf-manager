@@ -1,7 +1,7 @@
-package com.mattjoneslondon.pfmanager.controller;
+package com.mattjoneslondon.pfmanager.controller.instrument;
 
-import com.mattjoneslondon.pfmanager.domain.Instrument;
-import com.mattjoneslondon.pfmanager.dto.InstrumentRequest;
+import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
+import com.mattjoneslondon.pfmanager.domain.instrument.InstrumentRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

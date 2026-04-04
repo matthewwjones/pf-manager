@@ -1,13 +1,15 @@
-package com.mattjoneslondon.pfmanager.service;
+package com.mattjoneslondon.pfmanager.service.portfolio;
 
+import com.mattjoneslondon.pfmanager.dao.EomPriceRepository;
+import com.mattjoneslondon.pfmanager.dao.holding.HoldingRepository;
+import com.mattjoneslondon.pfmanager.dao.instrument.InstrumentRepository;
 import com.mattjoneslondon.pfmanager.domain.EomPrice;
-import com.mattjoneslondon.pfmanager.domain.Holding;
-import com.mattjoneslondon.pfmanager.domain.Instrument;
-import com.mattjoneslondon.pfmanager.dto.InstrumentAnalyticsDto;
-import com.mattjoneslondon.pfmanager.dto.PortfolioSummaryDto;
-import com.mattjoneslondon.pfmanager.repository.EomPriceRepository;
-import com.mattjoneslondon.pfmanager.repository.HoldingRepository;
-import com.mattjoneslondon.pfmanager.repository.InstrumentRepository;
+import com.mattjoneslondon.pfmanager.domain.holding.Holding;
+import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
+import com.mattjoneslondon.pfmanager.domain.instrument.InstrumentAnalyticsDto;
+import com.mattjoneslondon.pfmanager.domain.portfolio.PortfolioSummaryDto;
+import com.mattjoneslondon.pfmanager.service.ExchangeRateService;
+import com.mattjoneslondon.pfmanager.service.MovingAverageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

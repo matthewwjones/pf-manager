@@ -1,4 +1,4 @@
-package com.mattjoneslondon.pfmanager.dto;
+package com.mattjoneslondon.pfmanager.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

@@ -1,7 +1,7 @@
-package com.mattjoneslondon.pfmanager.service;
+package com.mattjoneslondon.pfmanager.service.instrument;
 
-import com.mattjoneslondon.pfmanager.domain.Instrument;
-import com.mattjoneslondon.pfmanager.repository.InstrumentRepository;
+import com.mattjoneslondon.pfmanager.dao.instrument.InstrumentRepository;
+import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

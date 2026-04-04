@@ -1,8 +1,8 @@
-package com.mattjoneslondon.pfmanager.controller;
+package com.mattjoneslondon.pfmanager.controller.instrument;
 
-import com.mattjoneslondon.pfmanager.domain.Instrument;
-import com.mattjoneslondon.pfmanager.dto.InstrumentRequest;
-import com.mattjoneslondon.pfmanager.service.InstrumentService;
+import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
+import com.mattjoneslondon.pfmanager.domain.instrument.InstrumentRequest;
+import com.mattjoneslondon.pfmanager.service.instrument.InstrumentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

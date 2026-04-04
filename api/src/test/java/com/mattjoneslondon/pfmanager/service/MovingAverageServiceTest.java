@@ -1,7 +1,7 @@
 package com.mattjoneslondon.pfmanager.service;
 
+import com.mattjoneslondon.pfmanager.dao.EomPriceRepository;
 import com.mattjoneslondon.pfmanager.domain.EomPrice;
-import com.mattjoneslondon.pfmanager.repository.EomPriceRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

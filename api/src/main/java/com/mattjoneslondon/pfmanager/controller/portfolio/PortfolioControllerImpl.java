@@ -1,7 +1,7 @@
-package com.mattjoneslondon.pfmanager.controller;
+package com.mattjoneslondon.pfmanager.controller.portfolio;
 
-import com.mattjoneslondon.pfmanager.dto.PortfolioSummaryDto;
-import com.mattjoneslondon.pfmanager.service.PortfolioAnalyticsService;
+import com.mattjoneslondon.pfmanager.domain.portfolio.PortfolioSummaryDto;
+import com.mattjoneslondon.pfmanager.service.portfolio.PortfolioAnalyticsService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
-package com.mattjoneslondon.pfmanager.controller;
+package com.mattjoneslondon.pfmanager.controller.instrument;
 
-import com.mattjoneslondon.pfmanager.domain.Instrument;
-import com.mattjoneslondon.pfmanager.service.InstrumentService;
+import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
+import com.mattjoneslondon.pfmanager.service.instrument.InstrumentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
