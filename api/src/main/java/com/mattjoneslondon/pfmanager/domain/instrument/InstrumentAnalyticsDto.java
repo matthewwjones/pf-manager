@@ -1,4 +1,4 @@
-package com.mattjoneslondon.pfmanager.dto;
+package com.mattjoneslondon.pfmanager.domain.instrument;
 
 public record InstrumentAnalyticsDto(
         String ticker,

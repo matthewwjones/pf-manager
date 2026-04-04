@@ -1,8 +1,8 @@
 package com.mattjoneslondon.pfmanager.controller;
 
+import com.mattjoneslondon.pfmanager.dao.EomPriceRepository;
 import com.mattjoneslondon.pfmanager.domain.EomPrice;
-import com.mattjoneslondon.pfmanager.dto.LoadPricesRequest;
-import com.mattjoneslondon.pfmanager.repository.EomPriceRepository;
+import com.mattjoneslondon.pfmanager.domain.LoadPricesRequest;
 import com.mattjoneslondon.pfmanager.service.PriceLoaderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

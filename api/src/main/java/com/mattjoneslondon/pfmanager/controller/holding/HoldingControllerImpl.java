@@ -1,8 +1,8 @@
-package com.mattjoneslondon.pfmanager.controller;
+package com.mattjoneslondon.pfmanager.controller.holding;
 
-import com.mattjoneslondon.pfmanager.domain.Holding;
-import com.mattjoneslondon.pfmanager.dto.HoldingRequest;
-import com.mattjoneslondon.pfmanager.service.HoldingService;
+import com.mattjoneslondon.pfmanager.domain.holding.Holding;
+import com.mattjoneslondon.pfmanager.domain.holding.HoldingRequest;
+import com.mattjoneslondon.pfmanager.service.holding.HoldingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

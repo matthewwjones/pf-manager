@@ -1,7 +1,7 @@
 package com.mattjoneslondon.pfmanager.controller;
 
 import com.mattjoneslondon.pfmanager.domain.EomPrice;
-import com.mattjoneslondon.pfmanager.dto.LoadPricesRequest;
+import com.mattjoneslondon.pfmanager.domain.LoadPricesRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

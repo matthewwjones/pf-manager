@@ -1,9 +1,9 @@
-package com.mattjoneslondon.pfmanager.dto;
+package com.mattjoneslondon.pfmanager.domain.instrument;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(description = "Request body for creating or updating an instrument")
-public record InstrumentRequest(
+@Schema(description = "An investable instrument tracked in the portfolio")
+public record Instrument(
         @Schema(description = "Instrument ticker symbol", example = "VWRL.LSE") String ticker,
         @Schema(description = "Human-readable instrument name", example = "Vanguard FTSE All-World UCITS ETF") String name,
         @Schema(description = "Trading currency (ISO 4217)", example = "GBP") String currency,

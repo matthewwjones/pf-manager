@@ -1,4 +1,4 @@
-package com.mattjoneslondon.pfmanager.repository;
+package com.mattjoneslondon.pfmanager.dao;
 
 import com.mattjoneslondon.pfmanager.domain.ExchangeRate;
 import org.springframework.jdbc.core.JdbcTemplate;

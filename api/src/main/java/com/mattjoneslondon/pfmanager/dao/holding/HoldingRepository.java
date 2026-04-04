@@ -1,6 +1,6 @@
-package com.mattjoneslondon.pfmanager.repository;
+package com.mattjoneslondon.pfmanager.dao.holding;
 
-import com.mattjoneslondon.pfmanager.domain.Holding;
+import com.mattjoneslondon.pfmanager.domain.holding.Holding;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

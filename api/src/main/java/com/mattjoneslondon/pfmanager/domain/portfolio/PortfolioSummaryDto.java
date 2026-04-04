@@ -1,4 +1,6 @@
-package com.mattjoneslondon.pfmanager.dto;
+package com.mattjoneslondon.pfmanager.domain.portfolio;
+
+import com.mattjoneslondon.pfmanager.domain.instrument.InstrumentAnalyticsDto;
 
 import java.time.LocalDate;
 import java.util.List;

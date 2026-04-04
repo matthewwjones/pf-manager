@@ -1,8 +1,8 @@
-package com.mattjoneslondon.pfmanager.controller;
+package com.mattjoneslondon.pfmanager.controller.portfolio;
 
-import com.mattjoneslondon.pfmanager.dto.InstrumentAnalyticsDto;
-import com.mattjoneslondon.pfmanager.dto.PortfolioSummaryDto;
-import com.mattjoneslondon.pfmanager.service.PortfolioAnalyticsService;
+import com.mattjoneslondon.pfmanager.domain.instrument.InstrumentAnalyticsDto;
+import com.mattjoneslondon.pfmanager.domain.portfolio.PortfolioSummaryDto;
+import com.mattjoneslondon.pfmanager.service.portfolio.PortfolioAnalyticsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;

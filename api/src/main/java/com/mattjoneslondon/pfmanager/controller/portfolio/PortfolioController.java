@@ -1,6 +1,6 @@
-package com.mattjoneslondon.pfmanager.controller;
+package com.mattjoneslondon.pfmanager.controller.portfolio;
 
-import com.mattjoneslondon.pfmanager.dto.PortfolioSummaryDto;
+import com.mattjoneslondon.pfmanager.domain.portfolio.PortfolioSummaryDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

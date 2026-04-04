@@ -1,6 +1,6 @@
-package com.mattjoneslondon.pfmanager.repository;
+package com.mattjoneslondon.pfmanager.dao.instrument;
 
-import com.mattjoneslondon.pfmanager.domain.Instrument;
+import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
