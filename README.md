@@ -1,4 +1,4 @@
-# pf-manager
+# Portfolio Manager
 
 A portfolio management application built with Java 21 and Spring Boot 4. Tracks equity holdings, fetches end-of-month
 prices from the [EODHD](https://eodhd.com) API, and generates buy/sell signals using a 10-month moving average strategy.
@@ -11,13 +11,13 @@ prices from the [EODHD](https://eodhd.com) API, and generates buy/sell signals u
 - USD/GBP currency conversion via stored exchange rates
 - Portfolio analytics: current value, weight drift, and 10-month MA signals (Buy / Sell / Neutral)
 - REST API with Swagger UI
-- SQLite persistence — no separate database server required
+- MySQL persistence
 
 ## Tech Stack
 
 - Java 21
 - Spring Boot 4.0.0
-- Spring JDBC (SQLite via `org.xerial:sqlite-jdbc`)
+- Spring JDBC (MySQL via `com.mysql:mysql-connector-j`)
 - SpringDoc OpenAPI 3 (Swagger UI)
 - JUnit 5 + Mockito + OkHttp MockWebServer
 - Gradle 9 with version catalog
@@ -25,6 +25,7 @@ prices from the [EODHD](https://eodhd.com) API, and generates buy/sell signals u
 ## Prerequisites
 
 - Java 21+
+- MySQL 8+
 - An [EODHD API key](https://eodhd.com) (free tier available)
 
 ## Getting Started
@@ -38,14 +39,18 @@ cd pf-manager
 
 ### 2. Configure environment variables
 
-| Variable            | Description                      | Default        |
-|---------------------|----------------------------------|----------------|
-| `EODHD_API_KEY`     | Your EODHD API key               | _(empty)_      |
-| `PORTFOLIO_DB_PATH` | Path to the SQLite database file | `portfolio.db` |
+| Variable               | Description              | Default                                    |
+|------------------------|--------------------------|--------------------------------------------|
+| `EODHD_API_KEY`        | Your EODHD API key       | _(empty)_                                  |
+| `PORTFOLIO_DB_URL`     | JDBC URL for MySQL       | `jdbc:mysql://localhost:3306/pfman`        |
+| `PORTFOLIO_DB_USERNAME`| Database username        | `root`                                     |
+| `PORTFOLIO_DB_PASSWORD`| Database password        | _(empty)_                                  |
 
 ```bash
 export EODHD_API_KEY=your_api_key_here
-export PORTFOLIO_DB_PATH=/path/to/portfolio.db
+export PORTFOLIO_DB_URL=jdbc:mysql://localhost:3306/pfman
+export PORTFOLIO_DB_USERNAME=your_db_user
+export PORTFOLIO_DB_PASSWORD=your_db_password
 ```
 
 ### 3. Run the application
@@ -107,7 +112,7 @@ Swagger UI is available at `http://localhost:8080/swagger-ui.html`.
 ./gradlew test
 ```
 
-Tests use an in-memory SQLite database and a mock EODHD server — no external dependencies required.
+Tests use an in-memory H2 database (MySQL mode) and a mock EODHD server — no external dependencies required.
 
 ### Test coverage
 
@@ -115,7 +120,7 @@ JaCoCo coverage reports are generated at `api/build/reports/jacoco/`.
 
 ## Database Schema
 
-The SQLite schema is initialised automatically on startup from `api/src/main/resources/schema.sql`.
+The schema is initialised automatically on startup from `api/src/main/resources/schema.sql`.
 
 | Table            | Description                                                    |
 |------------------|----------------------------------------------------------------|

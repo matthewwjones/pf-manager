@@ -2,19 +2,17 @@ package com.mattjoneslondon.pfmanager.service.instrument;
 
 import com.mattjoneslondon.pfmanager.dao.instrument.InstrumentRepository;
 import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@RequiredArgsConstructor
 public class InstrumentService {
 
     private final InstrumentRepository instrumentRepository;
-
-    public InstrumentService(InstrumentRepository instrumentRepository) {
-        this.instrumentRepository = instrumentRepository;
-    }
 
     public List<Instrument> getAllInstruments() {
         return instrumentRepository.findAll();

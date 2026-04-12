@@ -8,6 +8,7 @@ import com.mattjoneslondon.pfmanager.dao.instrument.InstrumentRepository;
 import com.mattjoneslondon.pfmanager.domain.EomPrice;
 import com.mattjoneslondon.pfmanager.domain.ExchangeRate;
 import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class PriceLoaderService {
     private static final String FOREX_TICKER = "GBPUSD.FOREX";
     private static final String GBP = "GBP";
@@ -27,16 +29,6 @@ public class PriceLoaderService {
     private final InstrumentRepository instrumentRepository;
     private final EomPriceRepository eomPriceRepository;
     private final ExchangeRateRepository exchangeRateRepository;
-
-    public PriceLoaderService(EodhdClient eodhdClient,
-                              InstrumentRepository instrumentRepository,
-                              EomPriceRepository eomPriceRepository,
-                              ExchangeRateRepository exchangeRateRepository) {
-        this.eodhdClient = eodhdClient;
-        this.instrumentRepository = instrumentRepository;
-        this.eomPriceRepository = eomPriceRepository;
-        this.exchangeRateRepository = exchangeRateRepository;
-    }
 
     public void loadPricesForDate(LocalDate eomDate) {
         final LocalDate fetchFrom = eomDate.minusMonths(HISTORY_FETCH_MONTHS);
