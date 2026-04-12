@@ -1,7 +1,9 @@
 spring:
   datasource:
-    url: jdbc:sqlite:${PORTFOLIO_DB_PATH:portfolio.db}
-    driver-class-name: org.sqlite.JDBC
+    url: ${PORTFOLIO_DB_URL:jdbc:mysql://localhost:3306/pfman}
+    username: ${PORTFOLIO_DB_USERNAME:root}
+    password: ${PORTFOLIO_DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
       mode: always

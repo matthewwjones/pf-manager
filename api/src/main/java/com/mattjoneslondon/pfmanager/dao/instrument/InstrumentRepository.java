@@ -1,6 +1,7 @@
 package com.mattjoneslondon.pfmanager.dao.instrument;
 
 import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -9,13 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class InstrumentRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public InstrumentRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public List<Instrument> findAll() {
         return jdbcTemplate.query(
@@ -37,10 +35,10 @@ public class InstrumentRepository {
                 """
                 INSERT INTO instruments(ticker, name, currency, target_weight_pct)
                 VALUES (?, ?, ?, ?)
-                ON CONFLICT(ticker) DO UPDATE SET
-                    name = excluded.name,
-                    currency = excluded.currency,
-                    target_weight_pct = excluded.target_weight_pct
+                ON DUPLICATE KEY UPDATE
+                    name = VALUES(name),
+                    currency = VALUES(currency),
+                    target_weight_pct = VALUES(target_weight_pct)
                 """,
                 instrument.ticker(),
                 instrument.name(),
@@ -53,7 +51,7 @@ public class InstrumentRepository {
         jdbcTemplate.update("DELETE FROM instruments WHERE ticker = ?", ticker);
     }
 
-    private RowMapper<Instrument> rowMapper() {
+    RowMapper<Instrument> rowMapper() {
         return (rs, rowNum) -> new Instrument(
                 rs.getString("ticker"),
                 rs.getString("name"),

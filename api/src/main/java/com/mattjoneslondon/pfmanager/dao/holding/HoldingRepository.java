@@ -1,6 +1,7 @@
 package com.mattjoneslondon.pfmanager.dao.holding;
 
 import com.mattjoneslondon.pfmanager.domain.holding.Holding;
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -10,13 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class HoldingRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public HoldingRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public List<Holding> findAll() {
         return jdbcTemplate.query(
@@ -53,8 +51,8 @@ public class HoldingRepository {
                 """
                 INSERT INTO holdings(ticker, shares, effective_date)
                 VALUES (?, ?, ?)
-                ON CONFLICT(ticker, effective_date) DO UPDATE SET
-                    shares = excluded.shares
+                ON DUPLICATE KEY UPDATE
+                    shares = VALUES(shares)
                 """,
                 holding.ticker(),
                 holding.shares(),
@@ -66,7 +64,7 @@ public class HoldingRepository {
         jdbcTemplate.update("DELETE FROM holdings WHERE id = ?", id);
     }
 
-    private RowMapper<Holding> rowMapper() {
+    RowMapper<Holding> rowMapper() {
         return (rs, rowNum) -> new Holding(
                 rs.getLong("id"),
                 rs.getString("ticker"),

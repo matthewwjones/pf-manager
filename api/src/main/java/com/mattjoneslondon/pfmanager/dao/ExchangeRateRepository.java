@@ -1,6 +1,7 @@
 package com.mattjoneslondon.pfmanager.dao;
 
 import com.mattjoneslondon.pfmanager.domain.ExchangeRate;
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -9,13 +10,10 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class ExchangeRateRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public ExchangeRateRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public Optional<ExchangeRate> findLatestOnOrBefore(String fromCurrency, String toCurrency, LocalDate date) {
         return jdbcTemplate.query(
@@ -38,8 +36,8 @@ public class ExchangeRateRepository {
                 """
                 INSERT INTO exchange_rates(rate_date, from_currency, to_currency, rate)
                 VALUES (?, ?, ?, ?)
-                ON CONFLICT(rate_date, from_currency, to_currency) DO UPDATE SET
-                    rate = excluded.rate
+                ON DUPLICATE KEY UPDATE
+                    rate = VALUES(rate)
                 """,
                 exchangeRate.rateDate().toString(),
                 exchangeRate.fromCurrency(),
@@ -48,7 +46,7 @@ public class ExchangeRateRepository {
         );
     }
 
-    private RowMapper<ExchangeRate> rowMapper() {
+    RowMapper<ExchangeRate> rowMapper() {
         return (rs, rowNum) -> new ExchangeRate(
                 rs.getLong("id"),
                 LocalDate.parse(rs.getString("rate_date")),

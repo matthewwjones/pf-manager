@@ -4,6 +4,7 @@ import com.mattjoneslondon.pfmanager.dao.EomPriceRepository;
 import com.mattjoneslondon.pfmanager.domain.EomPrice;
 import com.mattjoneslondon.pfmanager.domain.LoadPricesRequest;
 import com.mattjoneslondon.pfmanager.service.PriceLoaderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,15 +20,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/prices")
+@RequiredArgsConstructor
 public class PriceControllerImpl implements PriceController {
 
     private final EomPriceRepository eomPriceRepository;
     private final PriceLoaderService priceLoaderService;
-
-    public PriceControllerImpl(EomPriceRepository eomPriceRepository, PriceLoaderService priceLoaderService) {
-        this.eomPriceRepository = eomPriceRepository;
-        this.priceLoaderService = priceLoaderService;
-    }
 
     @Override
     @GetMapping
@@ -45,7 +42,7 @@ public class PriceControllerImpl implements PriceController {
     @PostMapping("/load")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void loadPrices(@RequestBody(required = false) LoadPricesRequest request) {
-        LocalDate eomDate = request != null && request.date() != null
+        final LocalDate eomDate = request != null && request.date() != null
                 ? request.date()
                 : YearMonth.now().atEndOfMonth();
         priceLoaderService.loadPricesForDate(eomDate);

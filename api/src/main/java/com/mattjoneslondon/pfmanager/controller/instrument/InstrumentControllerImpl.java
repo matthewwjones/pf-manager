@@ -3,6 +3,7 @@ package com.mattjoneslondon.pfmanager.controller.instrument;
 import com.mattjoneslondon.pfmanager.domain.instrument.Instrument;
 import com.mattjoneslondon.pfmanager.domain.instrument.InstrumentRequest;
 import com.mattjoneslondon.pfmanager.service.instrument.InstrumentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +19,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/instruments")
+@RequiredArgsConstructor
 public class InstrumentControllerImpl implements InstrumentController {
 
     private final InstrumentService instrumentService;
-
-    public InstrumentControllerImpl(InstrumentService instrumentService) {
-        this.instrumentService = instrumentService;
-    }
 
     @Override
     @GetMapping
@@ -42,15 +40,16 @@ public class InstrumentControllerImpl implements InstrumentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createInstrument(@RequestBody InstrumentRequest request) {
-        Instrument instrument = new Instrument(request.ticker(), request.name(),
-                                               request.currency(), request.targetWeightPct());
+        final Instrument instrument = new Instrument(request.ticker(), request.name(),
+                                                     request.currency(), request.targetWeightPct());
         instrumentService.saveInstrument(instrument);
     }
 
     @Override
     @PutMapping("/{ticker}")
     public void updateInstrument(@PathVariable String ticker, @RequestBody InstrumentRequest request) {
-        Instrument instrument = new Instrument(ticker, request.name(), request.currency(), request.targetWeightPct());
+        final Instrument instrument = new Instrument(ticker, request.name(),
+                                                     request.currency(), request.targetWeightPct());
         instrumentService.saveInstrument(instrument);
     }
 

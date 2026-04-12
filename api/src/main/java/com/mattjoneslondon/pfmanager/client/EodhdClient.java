@@ -24,7 +24,7 @@ public class EodhdClient {
 
     public List<EodhdPriceRecord> fetchMonthlyPrices(String ticker, LocalDate from, LocalDate to) {
         log.info("Requesting monthly prices from EODHD: ticker={}, from={}, to={}", ticker, from, to);
-        var records = restClient.get()
+        final EodhdPriceRecord[] records = restClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/eod/{ticker}")
                         .queryParam("api_token", apiKey)

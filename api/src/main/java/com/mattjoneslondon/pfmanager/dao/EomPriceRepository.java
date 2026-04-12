@@ -1,6 +1,7 @@
 package com.mattjoneslondon.pfmanager.dao;
 
 import com.mattjoneslondon.pfmanager.domain.EomPrice;
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -10,13 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class EomPriceRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public EomPriceRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public List<EomPrice> findByTicker(String ticker) {
         return jdbcTemplate.query(
@@ -68,9 +66,9 @@ public class EomPriceRepository {
                 """
                         INSERT INTO eom_prices(ticker, price_date, closing_price, currency)
                         VALUES (?, ?, ?, ?)
-                        ON CONFLICT(ticker, price_date) DO UPDATE SET
-                            closing_price = excluded.closing_price,
-                            currency = excluded.currency
+                        ON DUPLICATE KEY UPDATE
+                            closing_price = VALUES(closing_price),
+                            currency = VALUES(currency)
                         """,
                 price.ticker(),
                 price.priceDate().toString(),
@@ -79,7 +77,7 @@ public class EomPriceRepository {
         );
     }
 
-    private RowMapper<EomPrice> rowMapper() {
+    RowMapper<EomPrice> rowMapper() {
         return (rs, rowNum) -> new EomPrice(
                 rs.getLong("id"),
                 rs.getString("ticker"),

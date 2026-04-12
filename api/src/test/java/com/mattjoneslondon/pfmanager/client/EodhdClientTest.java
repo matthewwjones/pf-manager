@@ -12,7 +12,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class EodhdClientTest {
@@ -45,18 +48,18 @@ class EodhdClientTest {
                         """)
                 .addHeader("Content-Type", "application/json"));
 
-        List<EodhdPriceRecord> records = client.fetchMonthlyPrices("AAPL.US", FROM, TO);
+        final List<EodhdPriceRecord> records = client.fetchMonthlyPrices("AAPL.US", FROM, TO);
+        final EodhdPriceRecord priceRecord = records.get(0);
 
-        EodhdPriceRecord r = records.get(0);
         assertAll(
                 () -> assertThat(records, hasSize(1)),
-                () -> assertThat(r.date(), is("2024-01-31")),
-                () -> assertThat(r.open(), is(100.0)),
-                () -> assertThat(r.high(), is(110.0)),
-                () -> assertThat(r.low(), is(90.0)),
-                () -> assertThat(r.close(), is(105.0)),
-                () -> assertThat(r.adjustedClose(), is(104.5)),
-                () -> assertThat(r.volume(), is(1000000L))
+                () -> assertThat(priceRecord.date(), is("2024-01-31")),
+                () -> assertThat(priceRecord.open(), is(100.0)),
+                () -> assertThat(priceRecord.high(), is(110.0)),
+                () -> assertThat(priceRecord.low(), is(90.0)),
+                () -> assertThat(priceRecord.close(), is(105.0)),
+                () -> assertThat(priceRecord.adjustedClose(), is(104.5)),
+                () -> assertThat(priceRecord.volume(), is(1000000L))
         );
     }
 
@@ -66,7 +69,7 @@ class EodhdClientTest {
                 .setBody("[]")
                 .addHeader("Content-Type", "application/json"));
 
-        List<EodhdPriceRecord> records = client.fetchMonthlyPrices("AAPL.US", FROM, TO);
+        final List<EodhdPriceRecord> records = client.fetchMonthlyPrices("AAPL.US", FROM, TO);
 
         assertThat(records, is(empty()));
     }
@@ -79,8 +82,8 @@ class EodhdClientTest {
 
         client.fetchMonthlyPrices("AAPL.US", FROM, TO);
 
-        RecordedRequest request = mockServer.takeRequest();
-        String path = request.getPath();
+        final RecordedRequest request = mockServer.takeRequest();
+        final String path = request.getPath();
         assertAll(
                 () -> assertThat(path, containsString("/eod/AAPL.US")),
                 () -> assertThat(path, containsString("api_token=" + API_KEY)),
@@ -100,9 +103,9 @@ class EodhdClientTest {
                         """)
                 .addHeader("Content-Type", "application/json"));
 
-        List<EodhdPriceRecord> records = client.fetchMonthlyExchangeRates("GBPUSD.FOREX", FROM, TO);
+        final List<EodhdPriceRecord> records = client.fetchMonthlyExchangeRates("GBPUSD.FOREX", FROM, TO);
 
-        RecordedRequest request = mockServer.takeRequest();
+        final RecordedRequest request = mockServer.takeRequest();
         assertAll(
                 () -> assertThat(records, hasSize(1)),
                 () -> assertThat(request.getPath(), containsString("/eod/GBPUSD.FOREX"))

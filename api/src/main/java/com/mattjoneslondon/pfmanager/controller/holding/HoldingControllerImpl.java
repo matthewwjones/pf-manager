@@ -3,6 +3,7 @@ package com.mattjoneslondon.pfmanager.controller.holding;
 import com.mattjoneslondon.pfmanager.domain.holding.Holding;
 import com.mattjoneslondon.pfmanager.domain.holding.HoldingRequest;
 import com.mattjoneslondon.pfmanager.service.holding.HoldingService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +18,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/holdings")
+@RequiredArgsConstructor
 public class HoldingControllerImpl implements HoldingController {
 
     private final HoldingService holdingService;
-
-    public HoldingControllerImpl(HoldingService holdingService) {
-        this.holdingService = holdingService;
-    }
 
     @Override
     @GetMapping
@@ -41,7 +39,7 @@ public class HoldingControllerImpl implements HoldingController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createHolding(@RequestBody HoldingRequest request) {
-        Holding holding = new Holding(0, request.ticker(), request.shares(), request.effectiveDate());
+        final Holding holding = new Holding(0, request.ticker(), request.shares(), request.effectiveDate());
         holdingService.saveHolding(holding);
     }
 
