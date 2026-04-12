@@ -1,15 +1,15 @@
 [versions]
-springBoot = "4.0.4"
+springBoot = "4.0.5"
 springDependencyManagement = "1.1.7"
 mysqlConnector = "9.3.0"
 h2 = "2.3.232"
-springdoc = "3.0.2"
+springdoc = "3.0.3"
 hamcrest = "3.0"
 mockito = "5.23.0"
 okhttpMockwebserver = "5.3.2"
 jacoco = "0.8.12"
-lombok = "1.18.38"
-benManes = "0.52.0"
+lombok = "1.18.44"
+benManes = "0.53.0"
 
 [libraries]
 mysql-connector = { module = "com.mysql:mysql-connector-j", version.ref = "mysqlConnector" }
