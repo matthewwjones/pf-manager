@@ -1,23 +1,23 @@
 [versions]
-springBoot = "4.0.5"
-springDependencyManagement = "1.1.7"
-mysqlConnector = "9.3.0"
+spring-boot = "4.0.5"
+spring-dependency-management = "1.1.7"
+mysql-connector = "9.3.0"
 h2 = "2.3.232"
 springdoc = "3.0.3"
 hamcrest = "3.0"
 mockito = "5.23.0"
-okhttpMockwebserver = "5.3.2"
+okhttp-mockwebserver = "5.3.2"
 jacoco = "0.8.12"
 lombok = "1.18.44"
-benManes = "0.53.0"
+ben-manes = "0.53.0"
 
 [libraries]
-mysql-connector = { module = "com.mysql:mysql-connector-j", version.ref = "mysqlConnector" }
+mysql-connector = { module = "com.mysql:mysql-connector-j", version.ref = "mysql-connector" }
 h2 = { module = "com.h2database:h2", version.ref = "h2" }
 springdoc-openapi-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
 hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
-okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttpMockwebserver" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp-mockwebserver" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 spring-boot-starter-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
@@ -26,6 +26,6 @@ junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 
 [plugins]
-spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
-spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
-ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "benManes" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "ben-manes" }
