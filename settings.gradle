@@ -1,3 +1,4 @@
 rootProject.name = 'pf-manager'
 
 include('api')
+include('db')

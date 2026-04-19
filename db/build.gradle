@@ -1,0 +1,51 @@
+plugins {
+    alias(libs.plugins.ben.manes.versions)
+}
+
+configurations {
+    liquibaseRuntime
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    liquibaseRuntime libs.liquibase.core
+    liquibaseRuntime libs.picocli
+    liquibaseRuntime libs.mysql.connector
+    liquibaseRuntime libs.h2
+}
+
+def searchPath = "${rootProject.projectDir}/api/src/main/resources"
+def changelogFile = 'db/changelog/db.changelog-master.yaml'
+
+tasks.register('update', JavaExec) {
+    group = 'liquibase'
+    description = 'Apply Liquibase migrations to local H2 file database'
+    classpath = configurations.liquibaseRuntime
+    mainClass = 'liquibase.integration.commandline.LiquibaseCommandLine'
+    args = [
+        "--search-path=${searchPath}",
+        "--changelog-file=${changelogFile}",
+        '--url=jdbc:h2:file:./data/pfman;MODE=MySQL;DB_CLOSE_DELAY=-1',
+        '--username=sa',
+        '--password=',
+        'update'
+    ]
+}
+
+tasks.register('updateProd', JavaExec) {
+    group = 'liquibase'
+    description = 'Apply Liquibase migrations to production MySQL database'
+    classpath = configurations.liquibaseRuntime
+    mainClass = 'liquibase.integration.commandline.LiquibaseCommandLine'
+    args = [
+        "--search-path=${searchPath}",
+        "--changelog-file=${changelogFile}",
+        "--url=${System.getenv('PORTFOLIO_DB_URL') ?: ''}",
+        "--username=${System.getenv('PORTFOLIO_DB_USERNAME') ?: ''}",
+        "--password=${System.getenv('PORTFOLIO_DB_PASSWORD') ?: ''}",
+        'update'
+    ]
+}
