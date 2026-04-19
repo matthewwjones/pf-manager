@@ -25,7 +25,9 @@ dependencies {
     implementation libs.spring.boot.starter.web
     implementation libs.spring.boot.starter.jdbc
     runtimeOnly libs.mysql.connector
+    runtimeOnly libs.h2
     testRuntimeOnly libs.h2
+    testRuntimeOnly libs.liquibase.core
     implementation libs.springdoc.openapi.webmvc.ui
     testImplementation libs.spring.boot.starter.test
     testImplementation libs.spring.boot.starter.webmvc.test
@@ -33,6 +35,10 @@ dependencies {
     testImplementation libs.mockito.core
     testImplementation libs.okhttp.mockwebserver
     testRuntimeOnly libs.junit.platform.launcher
+}
+
+bootRun {
+    args = ['--spring.profiles.active=localdb']
 }
 
 springBoot {

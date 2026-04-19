@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: changes/001-instruments.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changes/002-eom-prices.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changes/003-holdings.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changes/004-exchange-rates.sql
+      relativeToChangelogFile: true
