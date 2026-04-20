@@ -10,7 +10,7 @@ okhttp-mockwebserver = "5.3.2"
 jacoco = "0.8.12"
 lombok = "1.18.44"
 ben-manes = "0.54.0"
-liquibase = "4.33.0"
+liquibase = "5.0.2"
 picocli = "4.7.7"
 
 [libraries]
